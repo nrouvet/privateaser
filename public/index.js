@@ -149,3 +149,37 @@ const actors = [{
 console.log(bars);
 console.log(events);
 console.log(actors);
+
+
+function recupBarId(id)
+{
+  var barFound = false;
+  var i = 0;
+  var result = null;
+  while (barFound==false && i<bars.length)
+  {
+    if (id==bars[i].id)
+    {
+      barFound = true;
+      result = bars[i];
+    }
+    i = i + 1;
+  }
+  return result;
+}
+
+function generateBookingPrice()
+{
+  for (var i=0;i<events.length;i++)
+  {
+    var bar = recupBarId(events[i].barId);
+    if (bar != null)
+    {
+      events[i].price = events[i].time*bar.pricePerHour + events[i].persons*bar.pricePerPerson;
+      
+    }
+  }
+}
+
+generateBookingPrice();
+console.log(events);
