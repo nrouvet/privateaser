@@ -147,7 +147,7 @@ const actors = [{
 }];
 
 console.log(bars);
-console.log(events);
+//console.log(events);
 console.log(actors);
 
 
@@ -175,11 +175,36 @@ function generateBookingPrice()
     var bar = recupBarId(events[i].barId);
     if (bar != null)
     {
-      events[i].price = events[i].time*bar.pricePerHour + events[i].persons*bar.pricePerPerson;
-      
+      if(events.persons>10 && events.persons<20){
+        events[i].price = events[i].price*0.10;
+      }
+      if(events.person>20 && events.persons<60){
+        events[i].price = events[i].price*0.20;
+      }
+      if(events.person>60){
+        events[i].price = events[i].price*0.50;
+      }
+      else{
+        events[i].price = events[i].time*bar.pricePerHour + events[i].persons*bar.pricePerPerson;
+      }
     }
   }
 }
 
 generateBookingPrice();
 console.log(events);
+
+
+function GetBarId(event){
+  return bars.find(function(bar){
+    if(bar.id === id){
+      return true
+    }
+    return false;
+  })
+}
+
+
+//const getBar = id => bars.find(bar =>bar.id ===id );
+
+
