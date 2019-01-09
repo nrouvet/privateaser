@@ -175,6 +175,7 @@ function generateBookingPrice()
     var bar = recupBarId(events[i].barId);
     if (bar != null)
     {
+      events[i].price = events[i].time*bar.pricePerHour + events[i].persons*bar.pricePerPerson;
       if(events.persons>10 && events.persons<20){
         events[i].price = events[i].price*0.10;
       }
@@ -184,10 +185,11 @@ function generateBookingPrice()
       if(events.person>60){
         events[i].price = events[i].price*0.50;
       }
-      else{
-        events[i].price = events[i].time*bar.pricePerHour + events[i].persons*bar.pricePerPerson;
-      }
+      else{}
     }
+    events[i].commission.insurance = (events[i].price / 2) ;
+    events[i].commission.treasury = events[i].persons;
+    events[i].commission.privateaser = events[i].price-(events[i].commission.insurance +events[i].commission.treasury)
   }
 }
 
@@ -203,6 +205,9 @@ function GetBarId(event){
     return false;
   })
 }
+
+
+
 
 
 //const getBar = id => bars.find(bar =>bar.id ===id );
